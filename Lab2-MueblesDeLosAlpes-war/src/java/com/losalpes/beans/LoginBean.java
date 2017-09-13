@@ -78,7 +78,7 @@ public class LoginBean {
             Usuario user = servicio.login(usuario, contraseña);            
             switch (user.getTipo()) {
                 case ADMINISTRADOR :
-                    pageRout = "clientAdmin.xhtml";
+                    pageRout = "indexAdmin.xhtml";
                 break;
                 
                 case CLIENTE :

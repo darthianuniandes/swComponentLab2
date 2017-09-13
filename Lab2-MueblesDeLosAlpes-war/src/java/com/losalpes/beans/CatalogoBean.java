@@ -18,6 +18,7 @@ import com.losalpes.servicios.IServicioCatalogo;
 import com.losalpes.servicios.ServicioCatalogoMock;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 
@@ -26,6 +27,7 @@ import javax.faces.model.SelectItem;
  * 
  */
 @ManagedBean
+@SessionScoped
 public class CatalogoBean
 {
 
@@ -37,6 +39,7 @@ public class CatalogoBean
      * Representa un nuevo mueble a ingresar
      */
     private Mueble mueble;
+    private List<Mueble> muebles;
 
     /**
      * Relación con la interfaz que provee los servicios necesarios del catálogo.
@@ -50,10 +53,10 @@ public class CatalogoBean
     /**
      * Constructor de la clase principal
      */
-    public CatalogoBean()
-    {
-        mueble=new Mueble();
-        catalogo=new ServicioCatalogoMock();
+    public CatalogoBean() {
+        mueble = new Mueble();
+        catalogo = new ServicioCatalogoMock();
+        muebles = catalogo.darMuebles();
     }
 
     //-----------------------------------------------------------
@@ -64,8 +67,7 @@ public class CatalogoBean
      * Devuelve el objeto mueble
      * @return mueble Objeto mueble
      */
-    public Mueble getMueble()
-    {
+    public Mueble getMueble() {
         return mueble;
     }
 
@@ -73,8 +75,7 @@ public class CatalogoBean
      * Modifica el objeto mueble
      * @param mueble Nuevo mueble
      */
-    public void setMueble(Mueble mueble)
-    {
+    public void setMueble(Mueble mueble) {
         this.mueble = mueble;
     }
 
@@ -82,10 +83,8 @@ public class CatalogoBean
      * Devuelve una lista con todos los muebles del sistema
      * @return muebles Muebles del sistema
      */
-    public List<Mueble> getMuebles()
-    {
-
-        return catalogo.darMuebles();
+    public List<Mueble> getMuebles() {
+        return this.muebles;
     }
 
     //-----------------------------------------------------------
@@ -95,31 +94,27 @@ public class CatalogoBean
     /**
      * Agrega un nuevo mueble al sistema
      */
-    public void agregarMueble()
-    {
-        catalogo.agregarMueble(mueble);
-        mueble=new Mueble();
+    public void agregarMueble() {
+//        catalogo.agregarMueble(mueble);
+        muebles.add(mueble);
+        mueble = new Mueble();
     }
 
     /**
      * Elimina la información del mueble
      */
-    public void limpiar()
-    {
-        mueble=new Mueble();
+    public void limpiar() {
+        mueble = new Mueble();
     }
 
     /**
      * Devuelve los tipos de muebles
      * @return sitems Tipos de muebles en el sistema
      */
-    public SelectItem[] getTiposMuebles()
-    {
+    public SelectItem[] getTiposMuebles() {
         TipoMueble[] tipos=  TipoMueble.values();
-        SelectItem[] sitems = new SelectItem[tipos.length];
-        
-        for (int i = 0; i < sitems.length; i++)
-        {
+        SelectItem[] sitems = new SelectItem[tipos.length];        
+        for (int i = 0; i < sitems.length; i++) {
              sitems[i] = new SelectItem(tipos[i]);
         }
         return sitems;
