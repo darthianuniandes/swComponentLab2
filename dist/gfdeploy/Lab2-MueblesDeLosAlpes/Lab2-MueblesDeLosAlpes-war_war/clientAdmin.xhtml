@@ -5,12 +5,22 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>PERRAS TODAS</div>
-    </body>
-</html>
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:param name="titulo" value="Control de Acceso" />
+<ui:define name="body">
+    <h:form>
+        <h:panelGroup>
+                <f:facet name="header" >
+                    Administracion de clientes
+                </f:facet>
+            <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                <h:commandButton value="Crear cliente" action="#{clientBean.crearCliente}" type="submit" />                
+            </h:panelGrid>
+        </h:panelGroup>
+    </h:form>
+</ui:define>
+</ui:composition>

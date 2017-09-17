@@ -1,26 +1,97 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+    Document   : catalogo
 -->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition template="/main-template.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
-<ui:param name="titulo" value="Control de Acceso" />
-<ui:define name="body">
-    <h:form>
-        <h:panelGroup>
-                <f:facet name="header" >
-                    Administracion de clientes
-                </f:facet>
-            <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
-                <h:commandButton value="Crear cliente" action="#{clientBean.crearCliente}" type="submit" />                
-            </h:panelGrid>
-        </h:panelGroup>
-    </h:form>
-</ui:define>
+    <ui:param name="titulo" value="Administración de clientes" />
+    <ui:define name="body">
+        <h:form>
+
+            <!-- Panel para agregar un nuevo mueble -->
+            <h:panelGroup>
+                <h:panelGrid width="300px" columns="6" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                    <h:outputLabel for="TxtReferencia" value="Referencia"/>
+                    <h:inputText id="TxtReferencia"
+                                   size="20"
+                                   maxlength="20"
+                                   label="Referencia"
+                                   
+                                   required="true">
+                        <f:validateLength minimum="1"/>
+                    </h:inputText>
+                    <h:message id="nameMsg" for="TxtReferencia" />
+                    
+                    <h:outputLabel for="TxtNombre"
+                                     value="Nombre" />
+                    <h:inputText id="TxtNombre"
+                                   maxlength="20"
+                                   size="20"
+                                   value="#{catalogoBean.mueble.nombre}"
+                                   label="Nombre"
+                                   required="true">
+                        <f:validateLength minimum="1"/>
+                    </h:inputText>
+                    <h:message id="pwMsg" for="TxtNombre" />
+                    
+                    <h:outputLabel for="TxtDescripcion" value="Descripción" />
+                    <h:inputTextarea id="TxtDescripcion"
+                                       value="#{catalogoBean.mueble.descripcion}"
+                                       rows="4" style="width: 125px"
+                                       label="Descripción"
+                                       >
+                        <f:validateLength minimum="1"/>
+
+                    </h:inputTextarea>
+                    <h:message id="descMsg" for="TxtDescripcion" />
+                    
+                </h:panelGrid>
+
+                <h:commandButton value="Agregar" action="#{catalogoBean.agregarMueble}" />
+                <h:commandButton value="Limpiar" action="#{catalogoBean.limpiar}" />
+            </h:panelGroup>
+            
+        </h:form>
+        <h:form>
+                <!-- Se crea una tabla donde se presentan los muebles del sistema -->
+                <p:dataTable
+                    id="data"
+                    value="#{catalogoBean.muebles}"
+                    var="file"
+                    scrollable="false"
+                    scrollHeight="100px"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    resizableColumns="true"
+                    rows="5">
+
+                           
+                    <p:column headerText="Referencia" sortBy="#{file.referencia}">
+                        <h:outputText value="#{file.referencia}" />
+                    </p:column>
+                    
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{file.nombre}" />
+                    </p:column>
+                    
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{file.descripcion}" />
+                    </p:column>
+                    
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{file.tipo}" />
+                    </p:column>
+                    
+                </p:dataTable>
+
+        </h:form>
+
+    </ui:define>
+
+
 </ui:composition>
