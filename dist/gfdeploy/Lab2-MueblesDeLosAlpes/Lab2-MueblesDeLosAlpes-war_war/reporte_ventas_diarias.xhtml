@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : catalogo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Reporte de ventas" />
+    <ui:define name="body">
+        <h:form>
+            <h:panelGroup>
+                <h2>Reporte de ventas diarias</h2>
+                <p:outputLabel for="fecha_inicial" value="Fecha Inicial" />
+                <p:calendar id="fecha_inicial" value="#{reporteVentasBean.fecha_inicial}" />
+                <br></br>
+                <p:outputLabel for="fecha_final" value="Fecha Final" />
+                <p:calendar id="fecha_final" value="#{reporteVentasBean.fecha_final}" />
+                <br></br>
+                <h:commandButton value="Generar" action="#{reporteVentasBean.generarReporte}" />
+            </h:panelGroup>
+        </h:form>
+        
+        
+        <h:dataTable
+            id="data_exterior"
+            value="#{reporteVentasBean.listado_muebles_exteriores}"
+            var = "mueble"
+            styleClass="order-table"
+            headerClass="order-table-header"
+            rowClasses="order-table-odd-row,order-table-even-row"
+            >
+            
+            <h:column>    				
+                <f:facet name = "header">Nombre</f:facet> 			
+                #{mueble.nombre}   
+            </h:column>
+
+            <h:column>    				
+                <f:facet name = "header">Cantidad</f:facet> 			
+                #{mueble.cantidad}   
+            </h:column>
+            
+            <h:column>    				
+                <f:facet name = "header">Costo unitario</f:facet> 			
+                #{mueble.costo_unitario}   
+            </h:column>
+            
+            <h:column>    				
+                <f:facet name = "header">Costo total</f:facet> 			
+                #{mueble.costo_total}   
+            </h:column>
+        </h:dataTable>
+        
+        
+        <h:dataTable
+            id="data_interior"
+            value="#{reporteVentasBean.listado_muebles_interiores}"
+            var = "mueble"
+            styleClass="order-table"
+            headerClass="order-table-header"
+            rowClasses="order-table-odd-row,order-table-even-row"
+            >
+            
+            <h:column>    				
+                <f:facet name = "header">Nombre</f:facet> 			
+                #{mueble.nombre}   
+            </h:column>
+
+            <h:column>    				
+                <f:facet name = "header">Cantidad</f:facet> 			
+                #{mueble.cantidad}   
+            </h:column>
+            
+            <h:column>    				
+                <f:facet name = "header">Costo unitario</f:facet> 			
+                #{mueble.costo_unitario}   
+            </h:column>
+            
+            <h:column>    				
+                <f:facet name = "header">Costo total</f:facet> 			
+                #{mueble.costo_total}   
+            </h:column>
+
+        </h:dataTable>
+        
+        <h4>
+            Total: #{reporteVentasBean.costo_total_ventas}
+        </h4>
+    </ui:define>
+
+
+</ui:composition>

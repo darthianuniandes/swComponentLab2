@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="Vitrina" value="Venta de muebles" />
+    <ui:define name="body">
+        <h:form id="form">
+            <!-- Se crea la grilla dondne se presentan los muebles al cliente -->
+            <h:panelGrid width="700px" columns="6">
+                <h:outputText value="Carrito: #{vitrinaBean.mueblesCompra.size()}" />
+                <h:button value="Ir al carrito" onclick="#{vitrinaBean.irCarrito()}" outcome="carrito" />
+            </h:panelGrid>
+            <p:dataGrid var="var" value="#{vitrinaBean.muebles}" columns="3" layout="grid"
+            rows="12" paginator="true" id="muebles"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rowsPerPageTemplate="6,12,16">
+            
+                <f:facet name="header">
+                    Muebles a la venta
+                </f:facet>
+                
+                <p:panel header="#{var.nombre}" style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%">
+                        <h:graphicImage value="resources/img/muebles/#{var.referencia}.png" height="256px" width="256px" />
+
+                        <h:outputText value="#{var.descripcion}" />
+                       
+                        <p:commandButton update=":form:muebleDetail" oncomplete="PF('muebleDialog').show()" icon="ui-icon-search">
+                            <h:outputText style="margin:0 auto;" value="Ver detalle" />
+                            <f:setPropertyActionListener value="#{var}" target="#{vitrinaBean.muebleSele}" />
+                        </p:commandButton>
+                        
+                        <h:commandButton value="Agregar" actionListener="#{vitrinaBean.agregarMuebleCarrito(var)}"  />
+                        
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+            
+            <p:dialog header="Info mueble" widgetVar="muebleDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="muebleDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty vitrinaBean.muebleSele}" columnClasses="label,value">
+                        <f:facet name="header">
+                            <h:graphicImage value="resources/img/muebles/#{vitrinaBean.muebleSele.referencia}.png"/> 
+                        </f:facet>
+
+                        <h:outputText value="Referencia:" />
+                        <h:outputText value="#{vitrinaBean.muebleSele.referencia}" />
+
+                        <h:outputText value="Nombre" />
+                        <h:outputText value="#{vitrinaBean.muebleSele.nombre}" />
+
+                        <h:outputText value="Tipo:" />
+                        <h:outputText value="#{vitrinaBean.muebleSele.tipo}" />
+
+                        <h:outputText value="Descripcion" />
+                        <h:outputText value="$#{vitrinaBean.muebleSele.descripcion}" />
+                        
+                        <h:outputText value="Precio" />
+                        <h:outputText value="$#{vitrinaBean.muebleSele.precio}" />
+                        
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+            
+        </h:form>
+    </ui:define>
+</ui:composition>
