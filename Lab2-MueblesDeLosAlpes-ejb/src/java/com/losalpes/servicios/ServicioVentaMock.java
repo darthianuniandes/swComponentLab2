@@ -8,16 +8,18 @@ package com.losalpes.servicios;
 import com.losalpes.bos.Mueble;
 import com.losalpes.bos.TipoMueble;
 import com.losalpes.bos.Venta;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.faces.bean.SessionScoped;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Mithrandir
  */
-@SessionScoped
 public class ServicioVentaMock implements IServicioVenta{
     private List ventas;
     
@@ -39,20 +41,22 @@ public class ServicioVentaMock implements IServicioVenta{
     private Mueble mueble16 = new Mueble("RF16", "Mueble16", "Este es el mueble 16", TipoMueble.Exterior, 456);
     private Mueble mueble17 = new Mueble("RF17", "Mueble17", "Este es el mueble 17", TipoMueble.Interior, 907);
     
-    private List lista1;
-    private List lista2;
-    private List lista3;
-    private List lista4;
-    private List lista5;
+    private List<Mueble> lista1;
+    private List<Mueble> lista2;
+    private List<Mueble> lista3;
+    private List<Mueble> lista4;
+    private List<Mueble> lista5;
     
     
     public ServicioVentaMock(){
         
-        lista1 = new ArrayList<Mueble>();
-        lista2 = new ArrayList<Mueble>();
-        lista3 = new ArrayList<Mueble>();
-        lista4 = new ArrayList<Mueble>();
-        lista5 = new ArrayList<Mueble>();
+        this.lista1 = new ArrayList<>();
+        this.lista2 = new ArrayList<>();
+        this.lista3 = new ArrayList<>();
+        this.lista4 = new ArrayList<>();
+        this.lista5 = new ArrayList<>(); 
+        
+        this.ventas = new ArrayList<>();
         
         this.lista1.add(mueble1);
         this.lista1.add(mueble2);
@@ -78,17 +82,16 @@ public class ServicioVentaMock implements IServicioVenta{
         this.lista5.add(mueble14);
         this.lista5.add(mueble17);
         
-                
-        ventas = new ArrayList<Venta>();
-        
-        this.ventas.add(new Venta(lista1, new Date(), 10000, "Efectivo", "Bogota"));
-        this.ventas.add(new Venta(lista5, new Date(), 324563, "Tarjeta de crédito", "Pasto"));
-        this.ventas.add(new Venta(lista4, new Date(), 356543, "Tarjeta débito", "Bogota"));
-        this.ventas.add(new Venta(lista3, new Date(), 345664, "Efectivo", "Cali"));
-        this.ventas.add(new Venta(lista2, new Date(), 4356, "Cheque", "Bucaramanga"));
-        
-        
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            this.ventas.add(new Venta(lista1, sdf.parse("2017-9-17"), 10000, "Efectivo", "Bogota"));
+            this.ventas.add(new Venta(lista5, sdf.parse("2017-9-18"), 324563, "Tarjeta de crédito", "Pasto"));
+            this.ventas.add(new Venta(lista4, sdf.parse("2017-9-19"), 356543, "Tarjeta débito", "Bogota"));
+            this.ventas.add(new Venta(lista3, sdf.parse("2017-9-20"), 345664, "Efectivo", "Cali"));
+            this.ventas.add(new Venta(lista2, sdf.parse("2017-9-21"), 4356, "Cheque", "Bucaramanga"));  
+        } catch (ParseException ex) {
+            Logger.getLogger(ServicioVentaMock.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
