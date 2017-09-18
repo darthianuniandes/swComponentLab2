@@ -82,7 +82,7 @@ public class LoginBean {
                 break;
                 
                 case CLIENTE :
-                    pageRout = "catalogo.xhtml";
+                    pageRout = "vitrina.xhtml";
                 break;
             }            
             return pageRout;
