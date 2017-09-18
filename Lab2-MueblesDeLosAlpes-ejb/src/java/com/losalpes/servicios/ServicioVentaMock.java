@@ -8,13 +8,16 @@ package com.losalpes.servicios;
 import com.losalpes.bos.Mueble;
 import com.losalpes.bos.TipoMueble;
 import com.losalpes.bos.Venta;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Mithrandir
  */
+@SessionScoped
 public class ServicioVentaMock implements IServicioVenta{
     private List ventas;
     
@@ -36,14 +39,21 @@ public class ServicioVentaMock implements IServicioVenta{
     private Mueble mueble16 = new Mueble("RF16", "Mueble16", "Este es el mueble 16", TipoMueble.Exterior, 456);
     private Mueble mueble17 = new Mueble("RF17", "Mueble17", "Este es el mueble 17", TipoMueble.Interior, 907);
     
-    private List<Mueble> lista1;
-    private List<Mueble> lista2;
-    private List<Mueble> lista3;
-    private List<Mueble> lista4;
-    private List<Mueble> lista5;
+    private List lista1;
+    private List lista2;
+    private List lista3;
+    private List lista4;
+    private List lista5;
     
     
     public ServicioVentaMock(){
+        
+        lista1 = new ArrayList<Mueble>();
+        lista2 = new ArrayList<Mueble>();
+        lista3 = new ArrayList<Mueble>();
+        lista4 = new ArrayList<Mueble>();
+        lista5 = new ArrayList<Mueble>();
+        
         this.lista1.add(mueble1);
         this.lista1.add(mueble2);
         this.lista1.add(mueble9);
@@ -69,7 +79,7 @@ public class ServicioVentaMock implements IServicioVenta{
         this.lista5.add(mueble17);
         
                 
-        
+        ventas = new ArrayList<Venta>();
         
         this.ventas.add(new Venta(lista1, new Date(), 10000, "Efectivo", "Bogota"));
         this.ventas.add(new Venta(lista5, new Date(), 324563, "Tarjeta de crédito", "Pasto"));

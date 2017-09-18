@@ -5,6 +5,7 @@
  */
 package com.losalpes.beans;
 
+import com.losalpes.beans.utils.UtilJsf;
 import com.losalpes.bos.Mueble;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -21,6 +22,19 @@ public class CarritoBean {
     private List<Mueble> mueblesCompra;
 
     public CarritoBean() {
+    }
+    
+    public String obtenerValorCompra() {
+        Integer total = 0;
+        for (Mueble mueble : mueblesCompra) {
+            total += mueble.getPrecio();
+        }
+        return total.toString();
+    }
+    
+    public void irVenta() {
+        VentaBean venta = UtilJsf.getBeanVenta();
+        venta.asignarMueblesCompra(mueblesCompra);
     }
     
     public void asignarMueblesCompra(List<Mueble> muebles) {

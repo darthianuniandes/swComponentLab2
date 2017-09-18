@@ -43,8 +43,12 @@ public class VitrinaBean {
     }
     
     public void irCarrito() {
-        CarritoBean carrito = UtilJsf.getBean();
+        CarritoBean carrito = UtilJsf.getBeanCarrito();
         carrito.asignarMueblesCompra(mueblesCompra);
+    }
+    
+    public void reinciar() {
+        mueblesCompra = new ArrayList<Mueble>();
     }
     
     public Mueble getMuebleSele() {

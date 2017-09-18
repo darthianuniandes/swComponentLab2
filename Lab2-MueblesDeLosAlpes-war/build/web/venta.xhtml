@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="ConfirmacionPago" value="Venta de muebles" />
+    <ui:define name="body">
+        <h:form id="form">
+            <h:panelGrid width="700px" columns="2">
+                <h:outputText value="Total de items: " />
+                <h:outputText value="#{ventaBean.mueblesCompra.size()}" />
+                <h:outputText value="Valor total de la compra: " />
+                <h:outputText value="#{ventaBean.obtenerValorCompra()}" />
+                <h:outputText value="Ciudad: " />
+                <h:inputText id="TxtCiudad" size="20" maxlength="20"
+                             value="#{ventaBean.venta.ciudad}"
+                             label="Ciudad" required="true">
+                    <f:validateLength minimum="1"/>
+                </h:inputText>
+                <p:selectOneMenu id="SltPago" value="#{ventaBean.venta.formaPago}">
+                    <f:selectItem itemLabel="Debito" itemValue="debito" />
+                    <f:selectItem itemLabel="Credito" itemValue="credito" />
+                </p:selectOneMenu>
+                
+                <h:button value="Pagar" onclick="#{ventaBean.registrarVenta()}" outcome="confirmacionPago" />
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

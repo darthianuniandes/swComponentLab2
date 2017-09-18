@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:param name="Venta" value="Venta de muebles" />
+    <ui:define name="body">
+        <h:form id="form">
+            <h:panelGrid width="700px" columns="1">
+                <h:outputText value="Se ha confirmado el pago" />
+                <h:outputText value="Gracias por su compra " />
+                <h:button value="Volver al comercio" onclick="#{ventaBean.reiniciar()}" outcome="vitrina" />
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -6,6 +6,8 @@
 package com.losalpes.beans.utils;
 
 import com.losalpes.beans.CarritoBean;
+import com.losalpes.beans.VentaBean;
+import com.losalpes.beans.VitrinaBean;
 import javax.faces.context.FacesContext;
 
 /**
@@ -36,10 +38,17 @@ public class UtilJsf {
         return retorno.toString();
     }
 
-    public static CarritoBean getBean() {
+    public static CarritoBean getBeanCarrito() {
         return UtilJsf.obtenerBackingBean("carritoBean");
     }
-
+    
+    public static VentaBean getBeanVenta() {
+        return UtilJsf.obtenerBackingBean("ventaBean");
+    }
+    
+    public static VitrinaBean getBeanVitrina() {
+        return UtilJsf.obtenerBackingBean("vitrinaBean");
+    }
 
     public static void navegar(String accion) {
         FacesContext fc = FacesContext.getCurrentInstance();

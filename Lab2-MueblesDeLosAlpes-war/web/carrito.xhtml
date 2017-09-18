@@ -6,7 +6,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:param name="Vitrina" value="Venta de muebles" />
+    <ui:param name="Carrito" value="Venta de muebles" />
     <ui:define name="body">
         <h:form id="form">
             <!-- Se crea la grilla dondne se presentan los muebles al cliente -->
@@ -15,33 +15,33 @@
             </h:panelGrid>
             
             <p:dataTable
-                    id="data"
-                    value="#{carritoBean.mueblesCompra}"
-                    var="file"
-                    scrollable="false"
-                    scrollHeight="100px"
-                    paginator="true"
-                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                    resizableColumns="true"
-                    rows="5">
+                    id="data" value="#{carritoBean.mueblesCompra}"
+                    var="file" scrollable="false"
+                    scrollHeight="100px" paginator="true"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    resizableColumns="true" rows="5">
                            
                     <p:column headerText="Referencia" sortBy="#{file.referencia}">
                         <h:outputText value="#{file.referencia}" />
                     </p:column>
-                    
                     <p:column headerText="Nombre">
                         <h:outputText value="#{file.nombre}" />
                     </p:column>
-                    
                     <p:column headerText="Descripción">
                         <h:outputText value="#{file.descripcion}" />
                     </p:column>
-                    
                     <p:column headerText="Tipo">
                         <h:outputText value="#{file.tipo}" />
                     </p:column>
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{file.precio}" />
+                    </p:column>
                     
-                </p:dataTable>
+            </p:dataTable>
+            <h:panelGrid width="700px" columns="6">
+                <h:outputText value="Valor total de la compra: #{carritoBean.obtenerValorCompra()}" />
+            </h:panelGrid>
+            <h:button value="Efectuar compra" onclick="#{carritoBean.irVenta()}" outcome="venta" />
         </h:form>
     </ui:define>
 </ui:composition>
